@@ -147,6 +147,7 @@ class _HomeState extends State<Home> {
                   loadActivities();
                 },
               ),
+              const SizedBox(height: 65),
             ],
           ),
         ),
