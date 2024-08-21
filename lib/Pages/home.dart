@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:getactive/Components/c_activity_box.dart';
+import 'package:getactive/Components/c_add_activity_done_popup.dart';
 import 'package:getactive/Components/c_add_button.dart';
 import 'package:getactive/Components/c_add_popup.dart';
 import 'package:getactive/Components/c_edit_popup.dart';
 import 'package:getactive/Components/c_info_popup.dart';
 import 'package:getactive/Components/c_reorderable_list.dart';
-import 'package:getactive/Components/c_text_button.dart';
 import 'package:getactive/Components/c_top_search_bar.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity_done.dart';
@@ -41,43 +41,27 @@ class _HomeState extends State<Home> {
   }
 
   void activity(DsActivity activity) async {
+    DateTime dateTime = DateTime.now();
     showDialog(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CTextButton(
-                  onPressed: () => pop(),
-                  text: "Cancel",
-                ),
-                CTextButton(
-                  onPressed: () async {
-                    activity.setLastDone = DateTime.now();
-                    await DaoActivity.updateActivity(activity);
-                    await DaoActivityDone.insertActivityDone(DsActivityDone(
-                      uuid(),
-                      activity.getName,
-                      activity.getLastDone,
-                      activity.getNotes,
-                    ));
-                    activities.remove(activity);
-                    activities.add(activity);
-                    await DaoActivity.updateActivityIndexes(activities);
-                    loadActivities();
-                    pop();
-                  },
-                  text: "DO IT",
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+      builder: (BuildContext context) => CAddActivityDonePopup(
+          activity: activity,
+          dateTime: dateTime,
+          onPressed: (newDateTime) async {
+            activity.setLastDone = newDateTime;
+            await DaoActivity.updateActivity(activity);
+            await DaoActivityDone.insertActivityDone(DsActivityDone(
+              uuid(),
+              activity.getName,
+              activity.getLastDone,
+              activity.getNotes,
+            ));
+            activities.remove(activity);
+            activities.add(activity);
+            await DaoActivity.updateActivityIndexes(activities);
+            loadActivities();
+            pop();
+          }),
     );
   }
 

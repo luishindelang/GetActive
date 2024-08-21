@@ -14,8 +14,13 @@ class CHistoryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime d = activity.getDate;
-    String date = "${d.day}.${d.month}.${d.year}";
-    String time = d.toString().split(" ")[1].split(".")[0];
+    String month = d.month.toString().padLeft(2, "0");
+    String day = d.day.toString().padLeft(2, "0");
+    String date = "$day.$month.${d.year}";
+
+    String hour = d.hour.toString().padLeft(2, "0");
+    String min = d.minute.toString().padLeft(2, "0");
+    String time = "$hour:$min";
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       decoration: BoxDecoration(
