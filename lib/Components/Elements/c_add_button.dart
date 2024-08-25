@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getactive/Style/colors.dart';
 
 class CAddButton extends StatelessWidget {
   const CAddButton({
@@ -11,7 +12,7 @@ class CAddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.pink[100],
+      color: pinkForground,
       shape: const CircleBorder(),
       child: IconButton(
         onPressed: () => onPressed(),

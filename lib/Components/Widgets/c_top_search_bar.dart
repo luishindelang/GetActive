@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:getactive/DB/Sqlite/Dao/dao_activity_done.dart';
+import 'package:getactive/Pages/calendar.dart';
+import 'package:getactive/Style/colors.dart';
 
 class CTopSearchBar extends StatelessWidget {
   const CTopSearchBar({
@@ -12,6 +15,10 @@ class CTopSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void pop(route) {
+      Navigator.of(context).push(route);
+    }
+
     var controller = TextEditingController(text: search);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,25 +32,23 @@ class CTopSearchBar extends StatelessWidget {
               child: Theme(
                 data: Theme.of(context).copyWith(
                   textSelectionTheme: TextSelectionThemeData(
-                    cursorColor: Colors.pink[100],
-                    selectionColor: Colors.pink[100],
-                    selectionHandleColor: Colors.pink[100],
+                    cursorColor: pinkForground,
+                    selectionColor: pinkForground,
+                    selectionHandleColor: pinkForground,
                   ),
                 ),
                 child: TextField(
                   style: TextStyle(
-                    color: Colors.pink[200]!,
+                    color: pinkText,
                   ),
                   decoration: InputDecoration(
                     isDense: true,
                     contentPadding: const EdgeInsets.only(bottom: 0),
                     focusedBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 2, color: Colors.pink[100]!),
+                      borderSide: BorderSide(width: 2, color: pinkForground),
                     ),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 2, color: Colors.pink[100]!),
+                      borderSide: BorderSide(width: 2, color: pinkForground),
                     ),
                   ),
                   controller: controller,
@@ -58,17 +63,25 @@ class CTopSearchBar extends StatelessWidget {
                 icon: Icon(
                   Icons.search_rounded,
                   size: 30,
-                  color: Colors.pink[100]!,
+                  color: pinkForground,
                 ),
               ),
             ),
           ],
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () async {
+            final data = await DaoActivityDone.getAllActivities();
+            var route = MaterialPageRoute(
+              builder: (BuildContext context) => Calendar(
+                data: data,
+              ),
+            );
+            pop(route);
+          },
           icon: Icon(
-            Icons.account_box_rounded,
-            color: Colors.pink[100]!,
+            Icons.calendar_month_outlined,
+            color: pinkForground,
             size: 30,
           ),
         )

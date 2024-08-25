@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:getactive/Components/c_text_button.dart';
-import 'package:getactive/Components/c_text_field.dart';
+import 'package:getactive/Components/Elements/c_text_button.dart';
+import 'package:getactive/Components/Elements/c_text_field.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity.dart';
 import 'package:getactive/DB/Sqlite/Dao/dao_activity.dart';
+import 'package:getactive/Style/colors.dart';
 
 class CEditPopup extends StatefulWidget {
   const CEditPopup({super.key, required this.activity});
@@ -41,7 +42,7 @@ class _CEditPopupState extends State<CEditPopup> {
                 Text(
                   "Name",
                   style: TextStyle(
-                    color: Colors.pink[200]!,
+                    color: pinkText,
                     fontSize: 18,
                   ),
                 ),
@@ -52,7 +53,7 @@ class _CEditPopupState extends State<CEditPopup> {
                   },
                   icon: Icon(
                     Icons.delete_outline_outlined,
-                    color: Colors.pink[200]!,
+                    color: pinkText,
                   ),
                 ),
               ],

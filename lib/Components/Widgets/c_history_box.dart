@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity_done.dart';
+import 'package:getactive/Style/colors.dart';
 
 class CHistoryBox extends StatelessWidget {
   const CHistoryBox({
     super.key,
     required this.activity,
     required this.onPressed,
+    this.showName = false,
   });
 
   final DsActivityDone activity;
   final Function onPressed;
+  final bool showName;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +27,11 @@ class CHistoryBox extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: boxBackground,
         borderRadius: BorderRadius.circular(5),
         boxShadow: const [
           BoxShadow(
-            color: Colors.black12,
+            color: shadow,
             blurRadius: 1,
             spreadRadius: 1,
             offset: Offset(2, 2),
@@ -37,8 +40,7 @@ class CHistoryBox extends StatelessWidget {
       ),
       child: TextButton(
         style: ButtonStyle(
-          overlayColor:
-              WidgetStateProperty.all(Colors.pink[100]!.withOpacity(0.2)),
+          overlayColor: WidgetStateProperty.all(pinkForground.withOpacity(0.2)),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
@@ -50,11 +52,25 @@ class CHistoryBox extends StatelessWidget {
           padding: const EdgeInsets.all(5),
           child: Row(
             children: [
+              if (showName)
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Text(
+                      activity.getName,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: pinkText,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
               Text(
                 date,
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.pink[200]!,
+                  color: pinkText,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -63,7 +79,7 @@ class CHistoryBox extends StatelessWidget {
                 time,
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.pink[100]!,
+                  color: pinkForground,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),

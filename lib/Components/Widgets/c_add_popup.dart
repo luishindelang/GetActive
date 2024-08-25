@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:getactive/Components/c_text_box.dart';
-import 'package:getactive/Components/c_text_button.dart';
-import 'package:getactive/Components/c_text_field.dart';
+import 'package:getactive/Components/Elements/c_text_box.dart';
+import 'package:getactive/Components/Elements/c_text_button.dart';
+import 'package:getactive/Components/Elements/c_text_field.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity.dart';
 import 'package:getactive/DB/Service/s_uuid.dart';
 import 'package:getactive/DB/Sqlite/Dao/dao_activity.dart';
+import 'package:getactive/Style/colors.dart';
 
 class CAddPopup extends StatefulWidget {
   const CAddPopup({
@@ -40,7 +41,7 @@ class _CAddPopupState extends State<CAddPopup> {
             Text(
               "Name",
               style: TextStyle(
-                color: Colors.pink[200]!,
+                color: pinkText,
                 fontSize: 18,
               ),
             ),
@@ -53,7 +54,7 @@ class _CAddPopupState extends State<CAddPopup> {
             Text(
               "Description",
               style: TextStyle(
-                color: Colors.pink[200]!,
+                color: pinkText,
                 fontSize: 18,
               ),
             ),

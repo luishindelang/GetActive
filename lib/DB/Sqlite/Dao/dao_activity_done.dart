@@ -14,6 +14,17 @@ class DaoActivityDone {
     });
   }
 
+  static Future<void> updateNotes(DsActivityDone activityDone) async {
+    final db = await SqlConnection.instance.database;
+
+    await db.update(
+      TActivityDone.tableName,
+      {TActivityDone.notes: activityDone.getNotes},
+      where: "${TActivityDone.id} = ?",
+      whereArgs: [activityDone.getId],
+    );
+  }
+
   static Future<List<DsActivityDone>> getAllActivities() async {
     final db = await SqlConnection.instance.database;
     List<DsActivityDone> finalData = [];
@@ -51,13 +62,24 @@ class DaoActivityDone {
     return finalData;
   }
 
-  static Future<void> deleteActivity(String id) async {
+  static Future<List<DsActivityDone>> getActivitesByDate(String date) async {
     final db = await SqlConnection.instance.database;
+    List<DsActivityDone> finalData = [];
 
-    await db.delete(
+    List<Map> rawData = await db.query(
       TActivityDone.tableName,
-      where: "${TActivityDone.id} = ?",
-      whereArgs: [id],
+      where: "${TActivityDone.date} LIKE ?",
+      whereArgs: ["%$date%"],
+      orderBy: "${TActivityDone.date} ASC",
     );
+    for (var value in rawData) {
+      finalData.add(DsActivityDone(
+        value[TActivityDone.id],
+        value[TActivityDone.name],
+        DateTime.parse(value[TActivityDone.date]),
+        value[TActivityDone.notes],
+      ));
+    }
+    return finalData;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:getactive/Components/c_text_button.dart';
+import 'package:getactive/Components/Elements/c_text_button.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity.dart';
 
 class CAddActivityDonePopup extends StatefulWidget {

@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:getactive/Components/c_text_box.dart';
-import 'package:getactive/Components/c_text_button.dart';
+import 'package:getactive/Components/Elements/c_text_box.dart';
+import 'package:getactive/Components/Elements/c_text_button.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity.dart';
 import 'package:getactive/DB/Sqlite/Dao/dao_activity.dart';
+import 'package:getactive/Style/colors.dart';
 
 class CInfoPopup extends StatefulWidget {
   const CInfoPopup({
     super.key,
     required this.activity,
     required this.onHistoryPressed,
+    this.showHistory = true,
   });
 
   final DsActivity activity;
   final Function onHistoryPressed;
+  final bool showHistory;
 
   @override
   State<CInfoPopup> createState() => _CInfoPopupState();
@@ -43,13 +46,22 @@ class _CInfoPopupState extends State<CInfoPopup> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 10),
+            Text(
+              widget.activity.getName,
+              style: TextStyle(
+                color: pinkText,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Description",
                   style: TextStyle(
-                    color: Colors.pink[200]!,
+                    color: pinkText,
                     fontSize: 18,
                   ),
                 ),
@@ -66,15 +78,18 @@ class _CInfoPopupState extends State<CInfoPopup> {
                         },
                         icon: Icon(
                           Icons.edit_rounded,
-                          color: Colors.pink[200]!,
+                          color: pinkText,
                         ),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () => widget.onHistoryPressed(),
-                      icon: Icon(
-                        Icons.history_rounded,
-                        color: Colors.pink[200]!,
+                    Visibility(
+                      visible: widget.showHistory,
+                      child: IconButton(
+                        onPressed: () => widget.onHistoryPressed(),
+                        icon: Icon(
+                          Icons.history_rounded,
+                          color: pinkText,
+                        ),
                       ),
                     ),
                   ],

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:getactive/Components/c_activity_box.dart';
-import 'package:getactive/Components/c_add_activity_done_popup.dart';
-import 'package:getactive/Components/c_add_button.dart';
-import 'package:getactive/Components/c_add_popup.dart';
-import 'package:getactive/Components/c_edit_popup.dart';
-import 'package:getactive/Components/c_info_popup.dart';
-import 'package:getactive/Components/c_reorderable_list.dart';
-import 'package:getactive/Components/c_top_search_bar.dart';
+import 'package:getactive/Components/Widgets/c_activity_box.dart';
+import 'package:getactive/Components/Widgets/c_add_activity_done_popup.dart';
+import 'package:getactive/Components/Elements/c_add_button.dart';
+import 'package:getactive/Components/Widgets/c_add_popup.dart';
+import 'package:getactive/Components/Widgets/c_edit_popup.dart';
+import 'package:getactive/Components/Widgets/c_info_popup.dart';
+import 'package:getactive/Components/Elements/c_reorderable_list.dart';
+import 'package:getactive/Components/Widgets/c_top_search_bar.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity_done.dart';
 import 'package:getactive/DB/Service/s_uuid.dart';
 import 'package:getactive/DB/Sqlite/Dao/dao_activity.dart';
 import 'package:getactive/DB/Sqlite/Dao/dao_activity_done.dart';
 import 'package:getactive/Pages/history.dart';
+import 'package:getactive/Style/colors.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -116,9 +117,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 247, 245, 246),
+      backgroundColor: pageBackground,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 247, 245, 246),
+        backgroundColor: pageBackground,
         title: CTopSearchBar(
           search: searchName,
           onSubmit: (value) {

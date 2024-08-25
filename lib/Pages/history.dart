@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:getactive/Components/c_history_box.dart';
-import 'package:getactive/Components/c_history_popup.dart';
+import 'package:getactive/Components/Widgets/c_history_box.dart';
+import 'package:getactive/Components/Widgets/c_history_popup.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity_done.dart';
 import 'package:getactive/DB/Sqlite/Dao/dao_activity_done.dart';
+import 'package:getactive/Style/colors.dart';
 
 class History extends StatefulWidget {
   const History({
@@ -30,7 +31,7 @@ class _HistoryState extends State<History> {
     showDialog(
       context: context,
       builder: (BuildContext context) => CHistoryPopup(
-        description: activity.getNotes,
+        activity: activity,
       ),
     );
   }
@@ -44,11 +45,12 @@ class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 247, 245, 246),
+      backgroundColor: pageBackground,
       appBar: AppBar(
-          foregroundColor: Colors.pink[100]!,
-          backgroundColor: const Color.fromARGB(255, 247, 245, 246),
-          title: Text("History of ${widget.name}")),
+        foregroundColor: pinkForground,
+        backgroundColor: pageBackground,
+        title: Text("History of ${widget.name}"),
+      ),
       body: Column(
         children: activities
             .map((value) => CHistoryBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getactive/Style/colors.dart';
 
 class CTextBox extends StatelessWidget {
   const CTextBox({
@@ -21,15 +22,15 @@ class CTextBox extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(
         textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Colors.pink[100],
-          selectionColor: Colors.pink[100],
-          selectionHandleColor: Colors.pink[100],
+          cursorColor: pinkForground,
+          selectionColor: pinkForground,
+          selectionHandleColor: pinkForground,
         ),
       ),
       child: SingleChildScrollView(
         child: TextField(
           style: TextStyle(
-            color: Colors.pink[200]!,
+            color: pinkText,
           ),
           focusNode: focus,
           readOnly: readOnly,
@@ -40,10 +41,10 @@ class CTextBox extends StatelessWidget {
             isDense: true,
             contentPadding: const EdgeInsets.only(bottom: 0),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 1, color: Colors.pink[100]!),
+              borderSide: BorderSide(width: 1, color: pinkForground),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 1, color: Colors.pink[100]!),
+              borderSide: BorderSide(width: 1, color: pinkForground),
             ),
           ),
           controller: controller,

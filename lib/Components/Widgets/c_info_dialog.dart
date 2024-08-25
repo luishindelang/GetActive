@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getactive/Style/colors.dart';
 
 class CInfoDialog extends StatelessWidget {
   const CInfoDialog({
@@ -14,15 +15,15 @@ class CInfoDialog extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(
         textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Colors.pink[100],
-          selectionColor: Colors.pink[100],
-          selectionHandleColor: Colors.pink[100],
+          cursorColor: pinkForground,
+          selectionColor: pinkForground,
+          selectionHandleColor: pinkForground,
         ),
       ),
       child: SingleChildScrollView(
         child: TextField(
           style: TextStyle(
-            color: Colors.pink[200]!,
+            color: pinkText,
           ),
           focusNode: FocusNode(),
           readOnly: true,
@@ -33,10 +34,10 @@ class CInfoDialog extends StatelessWidget {
             isDense: true,
             contentPadding: const EdgeInsets.only(bottom: 0),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 1, color: Colors.pink[100]!),
+              borderSide: BorderSide(width: 1, color: pinkForground),
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(width: 1, color: Colors.pink[100]!),
+              borderSide: BorderSide(width: 1, color: pinkForground),
             ),
           ),
           controller: controller,

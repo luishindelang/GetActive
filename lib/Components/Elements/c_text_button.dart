@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getactive/Style/colors.dart';
 
 class CTextButton extends StatelessWidget {
   const CTextButton({
@@ -15,14 +16,14 @@ class CTextButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         overlayColor: WidgetStateProperty.all(
-          Colors.pink[200]!.withOpacity(0.3),
+          pinkText.withOpacity(0.3),
         ),
       ),
       onPressed: () => onPressed(),
       child: Text(
         text,
         style: TextStyle(
-          color: Colors.pink[200]!,
+          color: pinkText,
           fontSize: 20,
         ),
       ),
