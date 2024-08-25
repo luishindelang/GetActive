@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:getactive/Components/Widgets/c_edit_box.dart';
 import 'package:getactive/Components/Elements/c_text_button.dart';
+import 'package:getactive/Components/Widgets/c_date_picker.dart';
+import 'package:getactive/Components/Widgets/c_time_picker.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity.dart';
+import 'package:getactive/Style/colors.dart';
 
 class CAddActivityDonePopup extends StatefulWidget {
   const CAddActivityDonePopup({
@@ -43,10 +47,21 @@ class _CAddActivityDonePopupState extends State<CAddActivityDonePopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: boxBackground,
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 10),
+          Text(
+            widget.activity.getName,
+            style: TextStyle(
+              color: pinkText,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -54,15 +69,11 @@ class _CAddActivityDonePopupState extends State<CAddActivityDonePopup> {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (BuildContext context) => DatePickerDialog(
-                      initialDate: d,
-                      firstDate: d.subtract(const Duration(days: 365 * 2)),
-                      lastDate: d.add(const Duration(days: 365 * 5)),
-                    ),
-                  ).then((value) {
-                    if (value != null) {
+                    builder: (context) => CDatePicker(initialDate: d),
+                  ).then((date) {
+                    if (date != null) {
                       setState(() {
-                        String newDate = value.toString().split(" ")[0];
+                        String newDate = date.toString().split(" ")[0];
                         String oldTime =
                             widget.dateTime.toString().split(" ")[1];
                         d = DateTime.parse("$newDate $oldTime");
@@ -76,14 +87,19 @@ class _CAddActivityDonePopupState extends State<CAddActivityDonePopup> {
               CTextButton(
                 onPressed: () {
                   TimeOfDay time = TimeOfDay.fromDateTime(d);
-                  showTimePicker(
+                  showDialog(
                     context: context,
-                    initialTime: time,
-                  ).then((newTime) {
-                    if (newTime != null) {
+                    builder: (context) => CTimePicker(initialTime: time),
+                  ).then((time) {
+                    if (time != null) {
                       setState(() {
-                        d = DateTime(d.year, d.month, d.day, newTime.hour,
-                            newTime.minute);
+                        d = DateTime(
+                          d.year,
+                          d.month,
+                          d.day,
+                          time.hour,
+                          time.minute,
+                        );
                         setDate();
                       });
                     }
@@ -92,6 +108,12 @@ class _CAddActivityDonePopupState extends State<CAddActivityDonePopup> {
                 text: time,
               ),
             ],
+          ),
+          const SizedBox(height: 10),
+          CEditBox(
+            activity: widget.activity,
+            onHistoryPressed: () {},
+            showHistory: false,
           ),
           const SizedBox(height: 10),
           Row(

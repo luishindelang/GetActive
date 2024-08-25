@@ -30,6 +30,7 @@ class _CEditPopupState extends State<CEditPopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: boxBackground,
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -27,10 +27,6 @@ class _CInfoPopupState extends State<CInfoPopup> {
 
   bool readOnly = true;
 
-  void pop() {
-    Navigator.pop(context);
-  }
-
   @override
   void initState() {
     _controller.text = widget.activity.getNotes;
@@ -40,6 +36,7 @@ class _CInfoPopupState extends State<CInfoPopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: boxBackground,
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +109,7 @@ class _CInfoPopupState extends State<CInfoPopup> {
       actions: readOnly
           ? [
               CTextButton(
-                onPressed: () => pop(),
+                onPressed: () => Navigator.pop(context),
                 text: "Ok",
               ),
             ]

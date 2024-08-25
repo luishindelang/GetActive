@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
   void add() {
     showDialog(
       context: context,
-      builder: (BuildContext context) => CAddPopup(
+      builder: (context) => CAddPopup(
         index: activities.length + 1,
       ),
     ).then(
@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
     DateTime dateTime = DateTime.now();
     showDialog(
       context: context,
-      builder: (BuildContext context) => CAddActivityDonePopup(
+      builder: (context) => CAddActivityDonePopup(
           activity: activity,
           dateTime: dateTime,
           onPressed: (newDateTime) async {
@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
   void edit(DsActivity activity) {
     showDialog(
       context: context,
-      builder: (BuildContext context) => CEditPopup(activity: activity),
+      builder: (context) => CEditPopup(activity: activity),
     ).then(
       (value) => loadActivities(),
     );
@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
   void info(DsActivity activity) {
     showDialog(
       context: context,
-      builder: (BuildContext context) => CInfoPopup(
+      builder: (context) => CInfoPopup(
         activity: activity,
         onHistoryPressed: () => routeEntries(activity.getName),
       ),
@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
 
   void routeEntries(String name) {
     var route = MaterialPageRoute(
-      builder: (BuildContext context) => History(name: name),
+      builder: (context) => History(name: name),
     );
     Navigator.of(context).push(route);
   }

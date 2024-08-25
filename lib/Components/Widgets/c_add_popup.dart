@@ -32,6 +32,7 @@ class _CAddPopupState extends State<CAddPopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: boxBackground,
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
