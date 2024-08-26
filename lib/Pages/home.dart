@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getactive/DB/Service/s_notification_service.dart';
 import 'package:getactive/Components/Widgets/c_activity_box.dart';
 import 'package:getactive/Components/Widgets/c_add_activity_done_popup.dart';
 import 'package:getactive/Components/Elements/c_add_button.dart';
@@ -46,23 +47,24 @@ class _HomeState extends State<Home> {
     showDialog(
       context: context,
       builder: (context) => CAddActivityDonePopup(
-          activity: activity,
-          dateTime: dateTime,
-          onPressed: (newDateTime) async {
-            activity.setLastDone = newDateTime;
-            await DaoActivity.updateActivity(activity);
-            await DaoActivityDone.insertActivityDone(DsActivityDone(
-              uuid(),
-              activity.getName,
-              activity.getLastDone,
-              activity.getNotes,
-            ));
-            activities.remove(activity);
-            activities.add(activity);
-            await DaoActivity.updateActivityIndexes(activities);
-            loadActivities();
-            pop();
-          }),
+        activity: activity,
+        dateTime: dateTime,
+        onPressed: (newDateTime) async {
+          activity.setLastDone = newDateTime;
+          await DaoActivity.updateActivity(activity);
+          await DaoActivityDone.insertActivityDone(DsActivityDone(
+            uuid(),
+            activity.getName,
+            activity.getLastDone,
+            activity.getNotes,
+          ));
+          activities.remove(activity);
+          activities.add(activity);
+          await DaoActivity.updateActivityIndexes(activities);
+          loadActivities();
+          pop();
+        },
+      ),
     );
   }
 
@@ -110,6 +112,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    SNotificationService().scheduleDailyNotification();
     loadActivities();
     super.initState();
   }
