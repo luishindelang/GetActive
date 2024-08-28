@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getactive/Components/Widgets/c_confirm_delete.dart';
 import 'package:getactive/Components/Widgets/c_history_box.dart';
 import 'package:getactive/Components/Widgets/c_history_popup.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity_done.dart';
@@ -56,6 +57,15 @@ class _CalendarState extends State<Calendar> {
       context: context,
       builder: (BuildContext context) => CHistoryPopup(
         activity: activity,
+        onDeletePressed: () => showDialog(
+          context: context,
+          builder: (context) => CConfirmDelete(
+            onConfirm: () async {
+              await DaoActivityDone.deleteActivityDone(activity.getId);
+              loadEvents(_focusedDay.toString().split(" ")[0]);
+            },
+          ),
+        ),
       ),
     );
   }

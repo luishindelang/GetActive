@@ -9,9 +9,11 @@ class CHistoryPopup extends StatefulWidget {
   const CHistoryPopup({
     super.key,
     required this.activity,
+    required this.onDeletePressed,
   });
 
   final DsActivityDone activity;
+  final Function onDeletePressed;
 
   @override
   State<CHistoryPopup> createState() => _CHistoryPopupState();
@@ -62,21 +64,35 @@ class _CHistoryPopupState extends State<CHistoryPopup> {
                     fontSize: 18,
                   ),
                 ),
-                Visibility(
-                  visible: readOnly,
-                  child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        readOnly = false;
-                        FocusScope.of(context).requestFocus(_focusNode);
-                      });
-                    },
-                    icon: Icon(
-                      Icons.edit_rounded,
-                      color: pinkText,
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        if (readOnly) {
+                          setState(() {
+                            readOnly = false;
+                            FocusScope.of(context).requestFocus(_focusNode);
+                          });
+                        } else {
+                          setState(() {
+                            _controller.clear();
+                          });
+                        }
+                      },
+                      icon: Icon(
+                        readOnly ? Icons.edit_rounded : Icons.close_rounded,
+                        color: pinkText,
+                      ),
                     ),
-                  ),
-                )
+                    IconButton(
+                      onPressed: () => widget.onDeletePressed(),
+                      icon: Icon(
+                        Icons.delete_rounded,
+                        color: pinkText,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
             const SizedBox(height: 30),

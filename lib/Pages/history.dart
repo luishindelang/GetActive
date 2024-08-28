@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getactive/Components/Widgets/c_confirm_delete.dart';
 import 'package:getactive/Components/Widgets/c_history_box.dart';
 import 'package:getactive/Components/Widgets/c_history_popup.dart';
 import 'package:getactive/DB/DataStrukture/ds_activity_done.dart';
@@ -19,6 +20,7 @@ class History extends StatefulWidget {
 
 class _HistoryState extends State<History> {
   List<DsActivityDone> activities = [];
+
   void loadHistory() async {
     List<DsActivityDone> list =
         await DaoActivityDone.getActivitiesByName(widget.name);
@@ -32,6 +34,15 @@ class _HistoryState extends State<History> {
       context: context,
       builder: (BuildContext context) => CHistoryPopup(
         activity: activity,
+        onDeletePressed: () => showDialog(
+          context: context,
+          builder: (context) => CConfirmDelete(
+            onConfirm: () async {
+              await DaoActivityDone.deleteActivityDone(activity.getId);
+              loadHistory();
+            },
+          ),
+        ),
       ),
     );
   }

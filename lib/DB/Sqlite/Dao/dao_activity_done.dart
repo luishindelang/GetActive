@@ -82,4 +82,14 @@ class DaoActivityDone {
     }
     return finalData;
   }
+
+  static Future<void> deleteActivityDone(String id) async {
+    final db = await SqlConnection.instance.database;
+
+    await db.delete(
+      TActivityDone.tableName,
+      where: "${TActivityDone.id} = ?",
+      whereArgs: [id],
+    );
+  }
 }

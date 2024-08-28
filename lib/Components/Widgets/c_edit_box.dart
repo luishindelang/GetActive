@@ -55,19 +55,22 @@ class _CEditBoxState extends State<CEditBox> {
                   ),
                   Row(
                     children: [
-                      Visibility(
-                        visible: readOnly,
-                        child: IconButton(
-                          onPressed: () {
+                      IconButton(
+                        onPressed: () {
+                          if (readOnly) {
                             setState(() {
                               readOnly = false;
                               FocusScope.of(context).requestFocus(_focusNode);
                             });
-                          },
-                          icon: Icon(
-                            Icons.edit_rounded,
-                            color: pinkText,
-                          ),
+                          } else {
+                            setState(() {
+                              _controller.clear();
+                            });
+                          }
+                        },
+                        icon: Icon(
+                          readOnly ? Icons.edit_rounded : Icons.close_rounded,
+                          color: pinkText,
                         ),
                       ),
                       Visibility(
