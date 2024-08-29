@@ -23,34 +23,54 @@ class SNotificationService {
     final berlin = tz.getLocation('Europe/Berlin');
     tz.setLocalLocation(berlin);
 
-    await _notificationsPlugin.zonedSchedule(
+    await _zonedSchedule(
       0,
-      "Get Active",
+      0,
       "Did you forget to enter your daily activities?",
-      _nextInstance(),
+    );
+
+    await _zonedSchedule(
+      1,
+      1,
+      "Did you forget to enter your daily activities again?",
+    );
+
+    await _zonedSchedule(
+      2,
+      2,
+      "Have you broken up or why haven't you entered your daily activities yet?",
+    );
+  }
+
+  tz.TZDateTime _nextInstance(int delay) {
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduledDate =
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, 22, 32);
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+    return scheduledDate.add(Duration(days: delay));
+  }
+
+  Future<void> _zonedSchedule(int id, int delay, String message) async {
+    await _notificationsPlugin.zonedSchedule(
+      id,
+      "Get Active",
+      message,
+      _nextInstance(delay),
       NotificationDetails(
         android: AndroidNotificationDetails(
           _channelId,
           _channelName,
           channelDescription: 'your_channel_description',
           importance: Importance.max,
-          priority: Priority.max,
+          priority: Priority.high,
         ),
       ),
-      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );
-  }
-
-  tz.TZDateTime _nextInstance() {
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, 21, 00);
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
-    return scheduledDate;
   }
 
   // Future<void> checkPendingNotificationRequests() async {
